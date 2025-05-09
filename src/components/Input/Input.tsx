@@ -1,7 +1,7 @@
 import React, { forwardRef, useId, useState } from 'react';
 import type { ChangeEvent, InputHTMLAttributes } from 'react';
 
-import './Input.css';
+import './input.css';
 
 // Definición de los tipos de temas disponibles
 export type InputTheme = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info';

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import type { KeyboardEvent, ReactNode } from 'react';
-import './Select.css';
+import './select.css';
 
 // Interfaces
 export interface SelectOption {
