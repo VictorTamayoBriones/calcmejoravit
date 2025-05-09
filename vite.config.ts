@@ -12,5 +12,8 @@ export default defineConfig({
       '@utils': resolve(__dirname, 'src/utils'),
       '@': resolve(__dirname, 'src')
     }
+  },
+  server:{
+    host: true
   }
 })

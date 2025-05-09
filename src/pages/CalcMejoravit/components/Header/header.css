@@ -35,10 +35,14 @@ header{
     row-gap: 20px;
 }
 
-header .logo{
+header div:has(.logo){
     width: 40%;
-    object-fit: contain;
     height: max-content;
+}
+
+header .logo{
+    width: 100%;
+    object-fit: contain;
 }
 
 header .date_data{
@@ -56,7 +60,7 @@ header .date_data{
         gap: 20px;
     }
     
-    header .logo{
+    header div:has(.logo){
         width: 250px;
         object-fit: contain;
         height: max-content;
