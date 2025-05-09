@@ -1,0 +1,13 @@
+form{
+    padding: 20px;
+}
+
+@media(min-width: 1000px){
+    form{
+        padding: 40px;
+    }   
+    .dual-container{
+        display: flex;
+        gap: 20px;
+    }
+}

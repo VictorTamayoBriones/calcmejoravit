@@ -1,0 +1,497 @@
+/* Variables CSS para personalización global con soporte para modo claro y oscuro */
+:root {
+    /* Modo claro (default) */
+    /* Colores principales */
+    --input-color-default: #555;
+    --input-bg-default: #ffffff;
+    --input-border-default: #d1d5db;
+
+    --input-color-primary: #1976d2;
+    --input-bg-primary: #f0f7ff;
+    --input-border-primary: #90caf9;
+
+    --input-color-secondary: #7b1fa2;
+    --input-bg-secondary: #f3e5f5;
+    --input-border-secondary: #ce93d8;
+
+    --input-color-success: #2e7d32;
+    --input-bg-success: #e8f5e9;
+    --input-border-success: #a5d6a7;
+
+    --input-color-warning: #ed6c02;
+    --input-bg-warning: #fff3e0;
+    --input-border-warning: #ffb74d;
+
+    --input-color-error: #d32f2f;
+    --input-bg-error: #fef2f2;
+    --input-border-error: #ef5350;
+
+    --input-color-info: #0288d1;
+    --input-bg-info: #e1f5fe;
+    --input-border-info: #4fc3f7;
+    
+    /* Colores secundarios del tema */
+    --label-color: #374151;
+    --hint-color: #6b7280;
+    --icon-color: #6b7280;
+    --disabled-bg: #f3f4f6;
+    --readonly-bg: #f9fafb;
+    --clear-button-bg: #e5e7eb;
+    --clear-button-color: #6b7280;
+    --clear-button-hover-bg: #d1d5db;
+    --clear-button-hover-color: #374151;
+    --spinner-border-color: rgba(107, 114, 128, 0.2);
+    --spinner-top-color: #6b7280;
+
+    /* Tamaños */
+    --input-font-size-small: 0.875rem;
+    --input-padding-small: 0.5rem 0.75rem;
+    --input-height-small: 32px;
+
+    --input-font-size-medium: 1rem;
+    --input-padding-medium: 0.625rem 1rem;
+    --input-height-medium: 40px;
+
+    --input-font-size-large: 1.125rem;
+    --input-padding-large: 0.75rem 1.25rem;
+    --input-height-large: 48px;
+
+    /* Otros */
+    --input-transition: all 200ms ease-in-out;
+    --input-border-radius-rounded: 0.375rem;
+    --input-border-radius-pill: 2rem;
+    --input-box-shadow-focus: 0 0 0 3px rgba(66, 153, 225, 0.5);
+}
+
+/* Definición de variables para modo oscuro */
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Colores principales en modo oscuro */
+        --input-color-default: #e2e8f0;
+        --input-bg-default: #1e293b;
+        --input-border-default: #475569;
+
+        --input-color-primary: #90caf9;
+        --input-bg-primary: #103362;
+        --input-border-primary: #1976d2;
+
+        --input-color-secondary: #ce93d8;
+        --input-bg-secondary: #311b41;
+        --input-border-secondary: #7b1fa2;
+
+        --input-color-success: #a5d6a7;
+        --input-bg-success: #1b3a27;
+        --input-border-success: #2e7d32;
+
+        --input-color-warning: #ffb74d;
+        --input-bg-warning: #422800;
+        --input-border-warning: #ed6c02;
+
+        --input-color-error: #ef5350;
+        --input-bg-error: #3b161a;
+        --input-border-error: #d32f2f;
+
+        --input-color-info: #4fc3f7;
+        --input-bg-info: #0c303d;
+        --input-border-info: #0288d1;
+        
+        /* Colores secundarios del tema en modo oscuro */
+        --label-color: #e2e8f0;
+        --hint-color: #94a3b8;
+        --icon-color: #94a3b8;
+        --disabled-bg: #334155;
+        --readonly-bg: #1e293b;
+        --clear-button-bg: #475569;
+        --clear-button-color: #cbd5e1;
+        --clear-button-hover-bg: #64748b;
+        --clear-button-hover-color: #f1f5f9;
+        --spinner-border-color: rgba(203, 213, 225, 0.2);
+        --spinner-top-color: #cbd5e1;
+        
+        /* Sombras en modo oscuro */
+        --input-box-shadow-focus: 0 0 0 3px rgba(148, 163, 184, 0.5);
+    }
+}
+
+/* Clase para forzar modo claro independiente de las preferencias del sistema */
+.light-mode {
+    /* Colores principales en modo claro */
+    --input-color-default: #555;
+    --input-bg-default: #ffffff;
+    --input-border-default: #d1d5db;
+
+    --input-color-primary: #1976d2;
+    --input-bg-primary: #f0f7ff;
+    --input-border-primary: #90caf9;
+
+    --input-color-secondary: #7b1fa2;
+    --input-bg-secondary: #f3e5f5;
+    --input-border-secondary: #ce93d8;
+
+    --input-color-success: #2e7d32;
+    --input-bg-success: #e8f5e9;
+    --input-border-success: #a5d6a7;
+
+    --input-color-warning: #ed6c02;
+    --input-bg-warning: #fff3e0;
+    --input-border-warning: #ffb74d;
+
+    --input-color-error: #d32f2f;
+    --input-bg-error: #fef2f2;
+    --input-border-error: #ef5350;
+
+    --input-color-info: #0288d1;
+    --input-bg-info: #e1f5fe;
+    --input-border-info: #4fc3f7;
+    
+    /* Colores secundarios del tema en modo claro */
+    --label-color: #374151;
+    --hint-color: #6b7280;
+    --icon-color: #6b7280;
+    --disabled-bg: #f3f4f6;
+    --readonly-bg: #f9fafb;
+    --clear-button-bg: #e5e7eb;
+    --clear-button-color: #6b7280;
+    --clear-button-hover-bg: #d1d5db;
+    --clear-button-hover-color: #374151;
+    --spinner-border-color: rgba(107, 114, 128, 0.2);
+    --spinner-top-color: #6b7280;
+    
+    /* Sombras en modo claro */
+    --input-box-shadow-focus: 0 0 0 3px rgba(66, 153, 225, 0.5);
+}
+
+/* Clase para forzar modo oscuro independiente de las preferencias del sistema */
+.dark-mode {
+    /* Colores principales en modo oscuro */
+    --input-color-default: #e2e8f0;
+    --input-bg-default: #1e293b;
+    --input-border-default: #475569;
+
+    --input-color-primary: #90caf9;
+    --input-bg-primary: #103362;
+    --input-border-primary: #1976d2;
+
+    --input-color-secondary: #ce93d8;
+    --input-bg-secondary: #311b41;
+    --input-border-secondary: #7b1fa2;
+
+    --input-color-success: #a5d6a7;
+    --input-bg-success: #1b3a27;
+    --input-border-success: #2e7d32;
+
+    --input-color-warning: #ffb74d;
+    --input-bg-warning: #422800;
+    --input-border-warning: #ed6c02;
+
+    --input-color-error: #ef5350;
+    --input-bg-error: #3b161a;
+    --input-border-error: #d32f2f;
+
+    --input-color-info: #4fc3f7;
+    --input-bg-info: #0c303d;
+    --input-border-info: #0288d1;
+    
+    /* Colores secundarios del tema en modo oscuro */
+    --label-color: #e2e8f0;
+    --hint-color: #94a3b8;
+    --icon-color: #94a3b8;
+    --disabled-bg: #334155;
+    --readonly-bg: #1e293b;
+    --clear-button-bg: #475569;
+    --clear-button-color: #cbd5e1;
+    --clear-button-hover-bg: #64748b;
+    --clear-button-hover-color: #f1f5f9;
+    --spinner-border-color: rgba(203, 213, 225, 0.2);
+    --spinner-top-color: #cbd5e1;
+    
+    /* Sombras en modo oscuro */
+    --input-box-shadow-focus: 0 0 0 3px rgba(148, 163, 184, 0.5);
+}
+
+/* Contenedor principal */
+.custom-input-container {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+
+.custom-input-container--full-width {
+    width: 100%;
+}
+
+/* Estilo para el label */
+.custom-input-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.375rem;
+    color: var(--label-color);
+    display: flex;
+    align-items: center;
+}
+
+.custom-input-required {
+    color: var(--input-color-error);
+    margin-left: 0.25rem;
+}
+
+/* Contenedor para el input e iconos */
+.custom-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+/* Estilos base para el input */
+.custom-input {
+    appearance: none;
+    background-color: var(--input-bg-default);
+    border: 1px solid var(--input-border-default);
+    border-radius: 0;
+    color: var(--input-color-default);
+    display: block;
+    font-size: var(--input-font-size-medium);
+    line-height: 1.5;
+    padding: var(--input-padding-medium);
+    transition: var(--input-transition);
+    width: 100%;
+    height: var(--input-height-medium);
+}
+
+/* Estilos en hover */
+.custom-input:hover:not(:disabled):not(:read-only) {
+    border-color: var(--input-border-primary);
+}
+
+/* Estilos en focus */
+.custom-input:focus {
+    outline: none;
+    border-color: var(--input-color-primary);
+    box-shadow: var(--input-box-shadow-focus);
+}
+
+/* Estilos full-width */
+.custom-input--full-width {
+    width: 100%;
+}
+
+/* Tamaños */
+.custom-input--size-small {
+    font-size: var(--input-font-size-small);
+    padding: var(--input-padding-small);
+    height: var(--input-height-small);
+}
+
+.custom-input--size-medium {
+    font-size: var(--input-font-size-medium);
+    padding: var(--input-padding-medium);
+    height: var(--input-height-medium);
+}
+
+.custom-input--size-large {
+    font-size: var(--input-font-size-large);
+    padding: var(--input-padding-large);
+    height: var(--input-height-large);
+}
+
+/* Formas */
+.custom-input--shape-sharp {
+    border-radius: 0;
+}
+
+.custom-input--shape-rounded {
+    border-radius: var(--input-border-radius-rounded);
+}
+
+.custom-input--shape-pill {
+    border-radius: var(--input-border-radius-pill);
+}
+
+/* Temas de colores */
+.custom-input--theme-default {
+    color: var(--input-color-default);
+    background-color: var(--input-bg-default);
+    border-color: var(--input-border-default);
+}
+
+.custom-input--theme-primary {
+    color: var(--input-color-primary);
+    background-color: var(--input-bg-primary);
+    border-color: var(--input-border-primary);
+}
+
+.custom-input--theme-primary:focus {
+    border-color: var(--input-color-primary);
+    box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.3);
+}
+
+.custom-input--theme-secondary {
+    color: var(--input-color-secondary);
+    background-color: var(--input-bg-secondary);
+    border-color: var(--input-border-secondary);
+}
+
+.custom-input--theme-secondary:focus {
+    border-color: var(--input-color-secondary);
+    box-shadow: 0 0 0 3px rgba(123, 31, 162, 0.3);
+}
+
+.custom-input--theme-success {
+    color: var(--input-color-success);
+    background-color: var(--input-bg-success);
+    border-color: var(--input-border-success);
+}
+
+.custom-input--theme-success:focus {
+    border-color: var(--input-color-success);
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.3);
+}
+
+.custom-input--theme-warning {
+    color: var(--input-color-warning);
+    background-color: var(--input-bg-warning);
+    border-color: var(--input-border-warning);
+}
+
+.custom-input--theme-warning:focus {
+    border-color: var(--input-color-warning);
+    box-shadow: 0 0 0 3px rgba(237, 108, 2, 0.3);
+}
+
+.custom-input--theme-error {
+    color: var(--input-color-error);
+    background-color: var(--input-bg-error);
+    border-color: var(--input-border-error);
+}
+
+.custom-input--theme-error:focus {
+    border-color: var(--input-color-error);
+    box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.3);
+}
+
+.custom-input--theme-info {
+    color: var(--input-color-info);
+    background-color: var(--input-bg-info);
+    border-color: var(--input-border-info);
+}
+
+.custom-input--theme-info:focus {
+    border-color: var(--input-color-info);
+    box-shadow: 0 0 0 3px rgba(2, 136, 209, 0.3);
+}
+
+/* Estado disabled */
+.custom-input--disabled,
+.custom-input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: var(--disabled-bg);
+}
+
+/* Estado readonly */
+.custom-input--readonly,
+.custom-input:read-only {
+    background-color: var(--readonly-bg);
+    cursor: default;
+}
+
+/* Estilos para error */
+.custom-input--error {
+    border-color: var(--input-color-error);
+}
+
+.custom-input--error:focus {
+    box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.3);
+}
+
+/* Iconos */
+.custom-input-icon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--icon-color);
+    height: 100%;
+    width: 2.5rem;
+    pointer-events: none;
+}
+
+.custom-input-icon--left {
+    left: 0;
+}
+
+.custom-input-icon--right {
+    right: 0;
+}
+
+/* Padding adicional cuando hay iconos */
+.custom-input--with-left-icon {
+    padding-left: 2.5rem;
+}
+
+.custom-input--with-right-icon {
+    padding-right: 2.5rem;
+}
+
+/* Botón para limpiar el input */
+.custom-input-clear-button {
+    position: absolute;
+    right: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background-color: var(--clear-button-bg);
+    border: none;
+    color: var(--clear-button-color);
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: var(--input-transition);
+}
+
+.custom-input-clear-button:hover {
+    background-color: var(--clear-button-hover-bg);
+    color: var(--clear-button-hover-color);
+}
+
+.custom-input-clear-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.2);
+}
+
+/* Spinner de carga */
+.custom-input-spinner {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--spinner-border-color);
+    border-top-color: var(--spinner-top-color);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Mensajes de error y ayuda */
+.custom-input-messages {
+    min-height: 1.5rem;
+    margin-top: 0.25rem;
+}
+
+.custom-input-error-message {
+    color: var(--input-color-error);
+    font-size: 0.75rem;
+    margin: 0.25rem 0 0 0;
+}
+
+.custom-input-hint {
+    color: var(--hint-color);
+    font-size: 0.75rem;
+    margin: 0.25rem 0 0 0;
+}
