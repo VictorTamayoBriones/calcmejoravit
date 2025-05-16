@@ -3,7 +3,9 @@ import { CalcMejoravitContext, type IDataMejoravit } from "./CalcMejoravitContex
 import { handleValidData } from "../components/Form/helpers/handleValidData";
 import { formatAsNumber, formatToPesos } from "../components/Form/helpers/formatToPesos";
 import { formatDate } from "@utils/dateUtils";
-import { downloadFormDataAsTxt } from "@utils/downloadFormDataAsTxt";
+//import { downloadFormDataAsTxt } from "@utils/downloadFormDataAsTxt";
+import { generateWordFile } from "@utils/generateWordFile";
+
 
 const formattedDate = () => formatDate(new Date(), 'dayOfWeek, day month year');
 
@@ -31,6 +33,13 @@ export const CalcMejoravitProvider: FC<{ children: ReactNode }> = ({ children })
         const parsedValue = type === 'number' ? parseFloat(value) || 0 : value;
         if(id === "freeToCustomer"){
             updateDataMejoravit({ 'freeToCustomer': '0' });
+        }else if(id === 'nss'){
+            if(e.target.value.length>11){
+                const value = e.target.value.slice(0,11);
+                updateDataMejoravit({ [id]: value });
+            }else{
+                updateDataMejoravit({ [id]: value });
+            }
         }else{
             updateDataMejoravit({ [id]: formatAsNumber(parsedValue) });
         }
@@ -68,9 +77,8 @@ export const CalcMejoravitProvider: FC<{ children: ReactNode }> = ({ children })
             }
         });
 
-        console.log(data_to_make_files);
-
-        downloadFormDataAsTxt(data_to_make_files, `${data_to_make_files.nameCustomer.replace(/ /g, '')}-mejoravit`);
+        //downloadFormDataAsTxt(data_to_make_files, `${data_to_make_files.nameCustomer.replace(/ /g, '')}-mejoravit`);
+        generateWordFile(data_to_make_files);
     };
 
     return (

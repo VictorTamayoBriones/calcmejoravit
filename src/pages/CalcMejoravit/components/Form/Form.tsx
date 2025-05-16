@@ -17,7 +17,7 @@ export function Form() {
     <form onSubmit={(e)=>handleSubmit(e)} >
       <div className="dual-container">
         <Input label="Nombre Cliente" placeholder="Jose example example" type="text" fullWidth name="nameCustomer" id="nameCustomer"  value={dataMejoravit.nameCustomer} onChange={(e)=>handleChange(e)} />
-        <Input label="NSS" placeholder="" type="number" fullWidth name="nss" id="nss" value={dataMejoravit.nss}  onChange={(e)=>handleChange(e)} />
+        <Input label="NSS" placeholder="" type="number" fullWidth name="nss" id="nss" value={dataMejoravit.nss}  onChange={(e)=>handleChange(e)} maxLength={11} />
       </div>
       <div className="dual-container">
         <Input label="Monto de crédito" type="text" fullWidth name="montoCredito" id="montoCredito" value={formatToPesos(dataMejoravit.montoCredito, 0)} onChange={(e)=>handleChange(e)} />
