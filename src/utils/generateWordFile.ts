@@ -262,7 +262,8 @@ function downloadCargoACuenta(data: IDataMejoravit, TOTAL_TO_PAY_AS_CURRENCY: st
 function downloadContratoCredito(data: IDataMejoravit, TOTAL_TO_PAY_AS_CURRENCY: string) {
     
     const DOC_NAME = `${data.nameCustomer.split(' ').map(word => word.slice(0, 1)).join('')}_CONTRATO_CREDITO_Y_PAGARE.docx`;
-    
+    const FIRST_PARAGRAPH = "CONTRATO DE CRÉDITO SIMPLE, QUE CELEBRAN, POR UNA PARTE, GRUPO INMOBILIARIO T-MEX, S. DE R.L. DE C.V., A QUIEN EN LO SUCESIVO SE LE DENOMINARA LA “CONSTRUCTORA” Y, POR OTRA PARTE, EL  CLIENTE, DEBIDAMENTE IDENTIFICADO EN LA CARÁTULA DE ESTE CONTRATO, PERSONA FÍSICA, A QUIEN EN LO SUCESIVO SE LE DENOMINARA “EL CLIENTE, CUYO NOMBRE Y FIRMA APARECE EN EL APARTADO DE FIRMAS DEL PRESENTE CONTRATO, Y/O EL FORMATO PARA SOLICITAR LA DOMICILIACIÓN, SUSCRITA PREVIAMENTE CON “EL CLIENTE”, DE CONFORMIDAD CON LOS ANTECEDENTES, DECLARACIONES Y CLÁUSULAS SIGUIENTES:";
+
     // Crear un nuevo documento
     const doc = new Document({
         creator: "Grupo a vivir",
@@ -273,11 +274,11 @@ function downloadContratoCredito(data: IDataMejoravit, TOTAL_TO_PAY_AS_CURRENCY:
                 document: {
                     run: {
                         size: "11pt",
-                        font: "Arial",
+                        font: "Century Gothic",
                         color: "000000",
                     },
                     paragraph: {
-                        alignment: AlignmentType.LEFT
+                        alignment: AlignmentType.LEFT,
                     }
                 },
             },
@@ -286,8 +287,9 @@ function downloadContratoCredito(data: IDataMejoravit, TOTAL_TO_PAY_AS_CURRENCY:
                     id: "titleStyle",
                     name: "titleStyle",
                     run: {
+                        font: "Cambria (Body)",
                         bold: true,
-                        size: "12pt",
+                        size: "11pt",
                     },
                     paragraph: {
                         alignment: AlignmentType.CENTER,
@@ -298,6 +300,7 @@ function downloadContratoCredito(data: IDataMejoravit, TOTAL_TO_PAY_AS_CURRENCY:
                     name: "subtitleStyle",
                     run: {
                         size: "11pt",
+                        font: 'Cambria (Body)',
                     },
                     paragraph: {
                         alignment: AlignmentType.CENTER,
@@ -312,6 +315,20 @@ function downloadContratoCredito(data: IDataMejoravit, TOTAL_TO_PAY_AS_CURRENCY:
                     run: {
                         highlight: "yellow",
                     }
+                },
+                {
+                    id: "negritas",
+                    name: "negritas",
+                    run: {
+                        bold: true,
+                    }
+                },
+                {
+                    id: "tablaCliente",
+                    name: "tablaCliente",
+                    run: {
+                        font: 'Cambria (Body)',
+                    }
                 }
             ]
         },
@@ -320,9 +337,13 @@ function downloadContratoCredito(data: IDataMejoravit, TOTAL_TO_PAY_AS_CURRENCY:
                 children: [
                     // Crear tabla de título
                     createHeaderTable(),
-                    
+                    new Paragraph(''),
                     // Crear tabla de datos del cliente
-                    createClientDataTable(data, TOTAL_TO_PAY_AS_CURRENCY)
+                    createClientDataTable(data, TOTAL_TO_PAY_AS_CURRENCY),
+                    new Paragraph({spacing:{after: 200, before: 200}}),
+                    new Paragraph({ alignment: AlignmentType.JUSTIFIED, text: FIRST_PARAGRAPH, style: 'negritas' }),
+                    new Paragraph({ alignment: AlignmentType.CENTER, text: 'ANTECEDENTES', style: 'negritas', spacing: { after: 200, before: 200 } }),
+                    createSecondParafo()
                 ]
             }
         ],
@@ -356,6 +377,9 @@ function createHeaderTable(): Table {
         width: {
             size: 100,
             type: WidthType.PERCENTAGE,
+        },
+        margins:{
+            bottom: 200
         },
         borders: {
             top: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
@@ -422,6 +446,7 @@ function createClientDataTable(data: IDataMejoravit, TOTAL_TO_PAY_AS_CURRENCY: s
                         children: [
                             // Nombre del cliente
                             new Paragraph({
+                                style: 'tablaCliente',
                                 children: [
                                     new TextRun("Nombre del cliente: "),
                                     new TextRun({
@@ -436,6 +461,7 @@ function createClientDataTable(data: IDataMejoravit, TOTAL_TO_PAY_AS_CURRENCY: s
                             
                             // RFC
                             new Paragraph({
+                                style: 'tablaCliente',
                                 children: [
                                     new TextRun("RFC: JUAD891115MN8"),
                                 ],
@@ -446,6 +472,7 @@ function createClientDataTable(data: IDataMejoravit, TOTAL_TO_PAY_AS_CURRENCY: s
                             
                             // Domicilio del cliente
                             new Paragraph({
+                                style: 'tablaCliente',
                                 children: [
                                     new TextRun("Domicilio del cliente: "),
                                     new TextRun({
@@ -460,6 +487,7 @@ function createClientDataTable(data: IDataMejoravit, TOTAL_TO_PAY_AS_CURRENCY: s
                             
                             // Monto del crédito
                             new Paragraph({
+                                style: 'tablaCliente',
                                 children: [
                                     new TextRun("Monto del crédito: "),
                                     new TextRun({
@@ -474,6 +502,7 @@ function createClientDataTable(data: IDataMejoravit, TOTAL_TO_PAY_AS_CURRENCY: s
                             
                             // Fecha de firma
                             new Paragraph({
+                                style: 'tablaCliente',
                                 children: [
                                     new TextRun("Fecha de firma: "),
                                     new TextRun({
@@ -488,6 +517,7 @@ function createClientDataTable(data: IDataMejoravit, TOTAL_TO_PAY_AS_CURRENCY: s
                             
                             // Cuenta CLABE
                             new Paragraph({
+                                style: 'tablaCliente',
                                 children: [
                                     new TextRun("Cuenta CLABE: "),
                                     new TextRun({
@@ -511,4 +541,20 @@ function createClientDataTable(data: IDataMejoravit, TOTAL_TO_PAY_AS_CURRENCY: s
             }),
         ]
     });
+}
+
+function createSecondParafo(){
+    return  new Paragraph({
+        children: [
+            new TextRun("Que en la fecha indicada en la carátula el cliente solicito crédito personal al INFONAVIT para la REMODELACION/construcción del "),
+            new TextRun({text: 'PROYECTO ', bold: true}),
+            new TextRun("mencionado en el "),
+            new TextRun({text: 'ANEXO 1 ', bold: true}),
+            new TextRun('del presente contrato, que el crédito que se le autorizo fue por la cantidad antes mencionada, mismo que será depositado en la cuenta descrita, y razón por la que firmo el'),
+            new TextRun({text: ' Formato para solicitar la Domiciliación. ', bold: true}),
+        ],
+        spacing: {
+            after: 100,
+        },
+    })
 }
