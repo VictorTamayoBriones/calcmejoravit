@@ -1,6 +1,6 @@
 import { formatAsNumber, formatToPesos } from '@/pages/CalcMejoravit/components/Form/helpers/formatToPesos';
 import type { IDataMejoravit } from '@/pages/CalcMejoravit/context/CalcMejoravitContext';
-import { AlignmentType, Document, Packer, Paragraph, SectionType, TextRun } from 'docx';
+import { AlignmentType, BorderStyle, Document, Packer, Paragraph, SectionType, Table, TableCell, TableRow, TextRun, WidthType } from 'docx';
 import { numeroAPalabras } from './numerosALetras';
 
 // Función que recibe un objeto y genera un archivo Word para descarga
@@ -12,11 +12,12 @@ export const generateWordFile = (data: IDataMejoravit) => {
 
     downloadReciboDeMaterial(data, TOTAL_TO_PAY_AS_CURRENCY,TOTAL_TO_PAY_AS_TEXT);
     downloadCargoACuenta(data, TOTAL_TO_PAY_AS_CURRENCY);
+    downloadContratoCredito(data, TOTAL_TO_PAY_AS_CURRENCY);
 
 };
 
 function downloadReciboDeMaterial(data: IDataMejoravit, TOTAL_TO_PAY_AS_CURRENCY: string,TOTAL_TO_PAY_AS_TEXT: string) {
-    const TEXT_BODY = `Por este medio yo, ${data.nameCustomer}, identificado con mi credencial para votar (INE) identificada con el número (clave de elector): [CLAVE_LECTOR] y CURP: [CURP]; con domicilio en [DOMICILIO]; certifico que he recibido los siguientes materiales de parte de Grupo Inmobiliario T-Mex, S. de R.L. de C.V.:`;
+    const TEXT_BODY = `Por este medio yo, ${data.nameCustomer}, identificado con mi credencial para votar (INE) identificada con el número (clave de elector): [CLAVE_LECTOR] y CURP: [CURP]; con domicilio en ${data.domicilio}; certifico que he recibido los siguientes materiales de parte de Grupo Inmobiliario T-Mex, S. de R.L. de C.V.:`;
     const TEXT_PAY = `Lo anterior, corresponde a la totalidad del material solicitado por un monto de ${TOTAL_TO_PAY_AS_CURRENCY} (${TOTAL_TO_PAY_AS_TEXT}) por lo que no existe adeudo pendiente.`;
     const TEXT_END = `Además hago constar que los materiales anteriormente referidos están en perfecto estado y funcionan correctamente, por lo que me encuentro perfectamente satisfecho con ellos.`;
     const GUIONES = data.nameCustomer.split('').map(() => '_').concat("____________").join('');
@@ -255,5 +256,259 @@ function downloadCargoACuenta(data: IDataMejoravit, TOTAL_TO_PAY_AS_CURRENCY: st
         // Limpiar
         window.URL.revokeObjectURL(url);
         document.body.removeChild(link);
+    });
+}
+
+function downloadContratoCredito(data: IDataMejoravit, TOTAL_TO_PAY_AS_CURRENCY: string) {
+    
+    const DOC_NAME = `${data.nameCustomer.split(' ').map(word => word.slice(0, 1)).join('')}_CONTRATO_CREDITO_Y_PAGARE.docx`;
+    
+    // Crear un nuevo documento
+    const doc = new Document({
+        creator: "Grupo a vivir",
+        description: "Contrato de Apertura de Crédito Simple",
+        title: "Contrato de Apertura de Crédito Simple",
+        styles: {
+            default: {
+                document: {
+                    run: {
+                        size: "11pt",
+                        font: "Arial",
+                        color: "000000",
+                    },
+                    paragraph: {
+                        alignment: AlignmentType.LEFT
+                    }
+                },
+            },
+            paragraphStyles: [
+                {
+                    id: "titleStyle",
+                    name: "titleStyle",
+                    run: {
+                        bold: true,
+                        size: "12pt",
+                    },
+                    paragraph: {
+                        alignment: AlignmentType.CENTER,
+                    }
+                },
+                {
+                    id: "subtitleStyle",
+                    name: "subtitleStyle",
+                    run: {
+                        size: "11pt",
+                    },
+                    paragraph: {
+                        alignment: AlignmentType.CENTER,
+                        spacing: {
+                            after: 100,
+                        }
+                    }
+                },
+                {
+                    id: "highlightedText",
+                    name: "highlightedText",
+                    run: {
+                        highlight: "yellow",
+                    }
+                }
+            ]
+        },
+        sections: [
+            {
+                children: [
+                    // Crear tabla de título
+                    createHeaderTable(),
+                    
+                    // Crear tabla de datos del cliente
+                    createClientDataTable(data, TOTAL_TO_PAY_AS_CURRENCY)
+                ]
+            }
+        ],
+    });
+
+    // Generar el archivo blob
+    Packer.toBlob(doc).then(blob => {
+        // Crear URL del blob
+        const url = window.URL.createObjectURL(blob);
+
+        // Crear un enlace temporal para descargar
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = DOC_NAME;
+
+        // Añadir al DOM y simular clic
+        document.body.appendChild(link);
+        link.click();
+
+        // Limpiar
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(link);
+    });
+}
+
+/**
+ * Crea la tabla de encabezado con el título y subtítulos
+ */
+function createHeaderTable(): Table {
+    return new Table({
+        width: {
+            size: 100,
+            type: WidthType.PERCENTAGE,
+        },
+        borders: {
+            top: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+            bottom: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+            left: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+            right: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+            insideHorizontal: { style: BorderStyle.NONE },
+            insideVertical: { style: BorderStyle.NONE },
+        },
+        rows: [
+            new TableRow({
+                children: [
+                    new TableCell({
+                        children: [
+                            new Paragraph({
+                                text: "MODELO DE CONTRATO DE APERTURA DE CRÉDITO SIMPLE",
+                                style: "titleStyle"
+                            }),
+                            new Paragraph({
+                                text: "Tipo de crédito: Simple",
+                                style: "subtitleStyle",
+                                spacing: {
+                                    before: 200
+                                }
+                            }),
+                            new Paragraph({
+                                text: "Modalidad: Crédito para adelanto de obra",
+                                style: "subtitleStyle",
+                            }),
+                        ],
+                        margins: {
+                            top: 100,
+                            bottom: 100,
+                            left: 100,
+                            right: 100,
+                        }
+                    }),
+                ]
+            }),
+        ]
+    });
+}
+
+/**
+ * Crea la tabla con los datos del cliente
+ * @param data Datos del cliente y del crédito
+ */
+function createClientDataTable(data: IDataMejoravit, TOTAL_TO_PAY_AS_CURRENCY: string): Table {
+    return new Table({
+        width: {
+            size: 100,
+            type: WidthType.PERCENTAGE,
+        },
+        borders: {
+            top: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+            bottom: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+            left: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+            right: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+        },
+        rows: [
+            new TableRow({
+                children: [
+                    new TableCell({
+                        children: [
+                            // Nombre del cliente
+                            new Paragraph({
+                                children: [
+                                    new TextRun("Nombre del cliente: "),
+                                    new TextRun({
+                                        text: data.nameCustomer || "Ejemplo cliente",
+                                        highlight: "yellow",
+                                    }),
+                                ],
+                                spacing: {
+                                    after: 100,
+                                },
+                            }),
+                            
+                            // RFC
+                            new Paragraph({
+                                children: [
+                                    new TextRun("RFC: JUAD891115MN8"),
+                                ],
+                                spacing: {
+                                    after: 100,
+                                },
+                            }),
+                            
+                            // Domicilio del cliente
+                            new Paragraph({
+                                children: [
+                                    new TextRun("Domicilio del cliente: "),
+                                    new TextRun({
+                                        text: data.domicilio || "Ejemplo cliente",
+                                        highlight: "yellow",
+                                    }),
+                                ],
+                                spacing: {
+                                    after: 100,
+                                },
+                            }),
+                            
+                            // Monto del crédito
+                            new Paragraph({
+                                children: [
+                                    new TextRun("Monto del crédito: "),
+                                    new TextRun({
+                                        text: TOTAL_TO_PAY_AS_CURRENCY,
+                                        highlight: "yellow",
+                                    }),
+                                ],
+                                spacing: {
+                                    after: 100,
+                                },
+                            }),
+                            
+                            // Fecha de firma
+                            new Paragraph({
+                                children: [
+                                    new TextRun("Fecha de firma: "),
+                                    new TextRun({
+                                        text: data.date,
+                                        highlight: "yellow",
+                                    }),
+                                ],
+                                spacing: {
+                                    after: 100,
+                                },
+                            }),
+                            
+                            // Cuenta CLABE
+                            new Paragraph({
+                                children: [
+                                    new TextRun("Cuenta CLABE: "),
+                                    new TextRun({
+                                        text: "1524 2568 1234 7896 25",
+                                        highlight: "yellow",
+                                    }),
+                                ],
+                                spacing: {
+                                    after: 100,
+                                },
+                            }),
+                        ],
+                        margins: {
+                            top: 100,
+                            bottom: 100,
+                            left: 100,
+                            right: 100,
+                        }
+                    }),
+                ]
+            }),
+        ]
     });
 }

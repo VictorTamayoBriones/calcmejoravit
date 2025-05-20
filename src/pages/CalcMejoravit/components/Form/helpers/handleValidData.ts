@@ -1,9 +1,6 @@
 import type { IDataMejoravit } from "@/pages/CalcMejoravit/context/CalcMejoravitContext";
 
 export const handleValidData = (data: IDataMejoravit) => {
-    
-    console.log("DATA: ",data);
-    
     const GESTION = calculaCommisionGestion(Number(data.montoCredito), Number(data.commision));
     const FREE = calculaFree(Number(data.montoCredito), GESTION, Number(data.originacion));
 
@@ -22,10 +19,6 @@ function calculaCommisionGestion(monto: number, tasa: number){
 }
 
 function calculaFree(monto: number, gestion: number, originacion: number){
-    console.log(monto)
-    console.log(gestion)
-    console.log(originacion)
     const free = monto - gestion - originacion;
-    console.log(free);
     return free;
 }

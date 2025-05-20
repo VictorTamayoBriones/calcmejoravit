@@ -17,7 +17,8 @@ const INITIAL_STATE: IDataMejoravit = {
     "montoCredito": '',
     "gestion": '',
     "originacion": '2000',
-    "freeToCustomer": ''
+    "freeToCustomer": '',
+    "domicilio" : ''
 }
 
 export const CalcMejoravitProvider: FC<{ children: ReactNode }> = ({ children }) => {

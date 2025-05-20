@@ -9,7 +9,8 @@ export interface IDataMejoravit{
     "montoCredito" : string,
     "gestion" : string,
     "originacion" : string,
-    "freeToCustomer" : string
+    "freeToCustomer" : string,
+    "domicilio" : string
 }
 
 // 1. Definimos qué va en nuestro contexto
